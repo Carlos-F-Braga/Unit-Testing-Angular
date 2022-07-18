@@ -54,13 +54,17 @@ describe('HeroesComponent', () => {
       expect(mockHeroService.deleteHero).toHaveBeenCalledWith(value);
     })
 
-      it('should have all heroes', () => {
-      component.heroes = HEROES;
-
-      let value = HEROES;
-
-      expect(component.heroes).toEqual(value);
-    })
   })
+
+describe('heroes', () => {
+
+  it('should have all heroes', () => {
+    component.heroes = HEROES;
+
+    let value = HEROES;
+
+    expect(component.heroes).toEqual(value);
+  })
+})
 
 })
