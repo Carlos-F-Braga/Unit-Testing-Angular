@@ -1,5 +1,9 @@
 import { HeroesComponent } from "./heroes/heroes.component";
 import { of } from 'rxjs';
+import fixture from 'fixture';
+import { HeroComponent } from './hero/hero.component';
+import { query } from "@angular/animations";
+import { By } from "@angular/platform-browser";
 
 describe('HeroesComponent', () => {
   let component: HeroesComponent;
@@ -52,6 +56,20 @@ describe('HeroesComponent', () => {
       component.delete(value);
 
       expect(mockHeroService.deleteHero).toHaveBeenCalledWith(value);
+    })
+
+    it('should call heroService.deleteHero when the Hero componen\'s button  is called', () => {
+      spyOn(fixture.componentInstance, 'delete');
+      mockHeroService.deleteHero.and.returnValue(of(HEROES));
+      component.heroes = HEROES;
+
+
+      fixture.detectChanges();
+
+      const heroComponents = fixture.debugElement.queryAll(By.directive(HeroComponent))
+      heroComponents[0].query(By.css('button')).triggerEventHandler('click', {stopPopagation: () => {}} )
+
+      expect(fixture.componentInstance.delete).toHaveBeenCalledWith(HEROES[1]);
     })
 
   })
